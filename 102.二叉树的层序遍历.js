@@ -24,24 +24,20 @@ var levelOrder = function(root) {
   const queue = [];
   queue.push(root);
   let level = 0;
-  let levelLastNode = root;
   while(queue.length) {
-    const node = queue.shift();
-    if(!result[level]) {
-      result[level] = [node.val];
-    } else {
+    const size = queue.length;
+    result[level] = [];
+    for(let i = 0; i < size; i++) {
+      const node = queue.shift();
       result[level].push(node.val);
+      if(node.left) {
+        queue.push(node.left);
+      }
+      if(node.right) {
+        queue.push(node.right);
+      }
     }
-    if(node.left) {
-      queue.push(node.left);
-    }
-    if(node.right) {
-      queue.push(node.right);
-    }
-    if(levelLastNode === node) {
-      levelLastNode = queue[queue.length - 1];
-      level++;
-    }
+    level++;
   }
   return result;
 };
