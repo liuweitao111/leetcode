@@ -1,0 +1,46 @@
+/*
+ * @lc app=leetcode.cn id=86 lang=javascript
+ *
+ * [86] 分隔链表
+ */
+
+// @lc code=start
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} x
+ * @return {ListNode}
+ */
+var partition = function(head, x) {
+  const root = new ListNode();
+  root.next = head;
+  let lessNode = root;
+  let nextNode = root;
+  while(nextNode.next) {
+    if(nextNode.next.val < x) {
+      if(lessNode.next.val < x) {
+        lessNode= lessNode.next;
+        nextNode = nextNode.next;
+      } else {
+        const tmpNode = nextNode.next;
+        // 删除节点
+        nextNode.next = nextNode.next.next;
+        // 插入节点
+        tmpNode.next = lessNode.next;
+        lessNode.next = tmpNode;
+        lessNode = tmpNode;
+      }
+    } else {
+      nextNode = nextNode.next;
+    }
+  }
+  return root.next;
+};
+// @lc code=end
+
