@@ -17,30 +17,50 @@
  * @param {number} x
  * @return {ListNode}
  */
+// var partition = function(head, x) {
+//   const root = new ListNode();
+//   root.next = head;
+//   let lessNode = root;
+//   let nextNode = root;
+//   while(nextNode.next) {
+//     if(nextNode.next.val < x) {
+//       if(lessNode.next.val < x) {
+//         lessNode= lessNode.next;
+//         nextNode = nextNode.next;
+//       } else {
+//         const tmpNode = nextNode.next;
+//         // 删除节点
+//         nextNode.next = nextNode.next.next;
+//         // 插入节点
+//         tmpNode.next = lessNode.next;
+//         lessNode.next = tmpNode;
+//         lessNode = tmpNode;
+//       }
+//     } else {
+//       nextNode = nextNode.next;
+//     }
+//   }
+//   return root.next;
+// };
 var partition = function(head, x) {
-  const root = new ListNode();
-  root.next = head;
-  let lessNode = root;
-  let nextNode = root;
-  while(nextNode.next) {
-    if(nextNode.next.val < x) {
-      if(lessNode.next.val < x) {
-        lessNode= lessNode.next;
-        nextNode = nextNode.next;
-      } else {
-        const tmpNode = nextNode.next;
-        // 删除节点
-        nextNode.next = nextNode.next.next;
-        // 插入节点
-        tmpNode.next = lessNode.next;
-        lessNode.next = tmpNode;
-        lessNode = tmpNode;
-      }
+  let beforeHead = new ListNode();
+  let before = beforeHead;
+  let afterHead = new ListNode();
+  let after = afterHead;
+
+  while(head) {
+    if(head.val < x) {
+      before.next = head;
+      before = before.next;
     } else {
-      nextNode = nextNode.next;
+      after.next = head;
+      after = after.next;
     }
+    head = head.next;
   }
-  return root.next;
-};
+  after.next = null;
+  before.next = afterHead.next;
+  return beforeHead.next;
+}
 // @lc code=end
 
