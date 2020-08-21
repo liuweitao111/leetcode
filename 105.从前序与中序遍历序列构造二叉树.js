@@ -18,29 +18,41 @@
  * @return {TreeNode}
  */
 var buildTree = function(preorder, inorder) {
-  let i = 0;
-  const helper = order => {
-    const index = order.indexOf(preorder[i]);
-    const root = new TreeNode(preorder[i]);
-    i++;
-    const left = order.slice(0, index);
-    const right = order.slice(index+1);
-    if(!left.length) {
-      root.left = null;
-    } else {
-      root.left = helper(left);
+  const build = (preLeft, preRight, inLeft, inRight) => {
+    if(preLeft > preRight) {
+      return null;
     }
-    if(!right.length) {
-      root.right = null;
-    } else {
-      root.right = helper(right);
-    }
+    const root = new TreeNode(preorder[preLeft]);
+    const index = inorder.indexOf(preorder[preLeft]);
+    root.left = build(preLeft + 1, preLeft + (index - inLeft), inLeft, index);
+    root.right = build(preLeft + (index - inLeft) + 1, preRight, index + 1, inRight);
     return root;
   }
-  if(!preorder.length) {
-    return null;
-  }
-  return helper(inorder);
+  return build(0, preorder.length - 1, 0, inorder.length - 1);
 };
 // @lc code=end
-
+// var buildTree = function(preorder, inorder) {
+//   let i = 0;
+//   const helper = order => {
+//     const index = order.indexOf(preorder[i]);
+//     const root = new TreeNode(preorder[i]);
+//     i++;
+//     const left = order.slice(0, index);
+//     const right = order.slice(index+1);
+//     if(!left.length) {
+//       root.left = null;
+//     } else {
+//       root.left = helper(left);
+//     }
+//     if(!right.length) {
+//       root.right = null;
+//     } else {
+//       root.right = helper(right);
+//     }
+//     return root;
+//   }
+//   if(!preorder.length) {
+//     return null;
+//   }
+//   return helper(inorder);
+// };
