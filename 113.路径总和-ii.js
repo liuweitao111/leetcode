@@ -23,12 +23,13 @@ var pathSum = function(root, sum) {
     if(!r) {
       return;
     }
-    p = p.concat(r.val);
+    p.push(r.val);
     if(!r.left && !r.right && r.val === s) {
-      result.push(p);
+      result.push(p.slice());
     }
     findPath(r.left, s - r.val, p);
     findPath(r.right, s - r.val, p);
+    p.pop();
   }
   findPath(root, sum, []);
   return result;
