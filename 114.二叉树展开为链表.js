@@ -18,26 +18,42 @@
  * @return {void} Do not return anything, modify root in-place instead.
  */
 var flatten = function(root) {
-  const dfs = (n) => {
-    if(!n) {
-      return;
-    }
-    const l = dfs(n.left);
-    const r = dfs(n.right);
-    if(l && r) {
-      n.right = l;
-      let t = n;
-      while(t.right) {
-        t = t.right;
+  let curr = root;
+  while(curr) {
+    if(curr.left) {
+      let next = curr.left;
+      let predecessor = curr.left;
+      while(predecessor.right) {
+        predecessor = predecessor.right;
       }
-      t.right = r;
-    }else if(l) {
-      n.right = l;
+      predecessor.right = curr.right;
+      curr.left = null;
+      curr.right = next;
     }
-    n.left = null;
-    return n;
+    curr = curr.right;
   }
-  dfs(root);
 };
 // @lc code=end
+// var flatten = function(root) {
+//   const dfs = (n) => {
+//     if(!n) {
+//       return;
+//     }
+//     const l = dfs(n.left);
+//     const r = dfs(n.right);
+//     if(l && r) {
+//       n.right = l;
+//       let t = n;
+//       while(t.right) {
+//         t = t.right;
+//       }
+//       t.right = r;
+//     }else if(l) {
+//       n.right = l;
+//     }
+//     n.left = null;
+//     return n;
+//   }
+//   dfs(root);
+// };
 
