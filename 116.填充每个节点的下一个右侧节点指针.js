@@ -20,29 +20,47 @@
  * @return {Node}
  */
 var connect = function(root) {
-  const queue = [];
   if(!root) {
     return root;
   }
-  queue.push(root);
-  while(queue.length) {
-    const size = queue.length;
-    let pre = null;
-    for(let i = 0; i < size; i++) {
-      const node = queue.shift();
-      if(pre) {
-        pre.next = node;
+  let leftMost = root;
+  while(leftMost.left) {
+    let node = leftMost;
+    while(node) {
+      node.left.next = node.right;
+      if(node.next) {
+        node.right.next = node.next.left;
       }
-      pre = node;
-      if(node.left) {
-        queue.push(node.left);
-      }
-      if(node.right) {
-        queue.push(node.right);
-      }
+      node = node.next;
     }
+    leftMost = leftMost.left;
   }
   return root;
 };
-// @lc code=end
+// // @lc code=end
+// var connect = function(root) {
+//   const queue = [];
+//   if(!root) {
+//     return root;
+//   }
+//   queue.push(root);
+//   while(queue.length) {
+//     const size = queue.length;
+//     let pre = null;
+//     for(let i = 0; i < size; i++) {
+//       const node = queue.shift();
+//       if(pre) {
+//         pre.next = node;
+//       }
+//       pre = node;
+//       if(node.left) {
+//         queue.push(node.left);
+//       }
+//       if(node.right) {
+//         queue.push(node.right);
+//       }
+//     }
+//   }
+//   return root;
+// };
 
