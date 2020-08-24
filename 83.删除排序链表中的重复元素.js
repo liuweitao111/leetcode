@@ -16,35 +16,9 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-function ListNode(val) {
-  this.val = val;
-  this.next = null;
-}
-
-// 数组转链表
-function arrayToList(data=[]) {
-  const root = new ListNode();
-  let next = root;
-  data.forEach(val => {
-    next.next = new ListNode(val);
-    next = next.next;
-  });
-  return root.next;
-}
-
-// 链表转数组
-function listToArray(head) {
-  const result = [];
-  while(head) {
-    result.push(head.val);
-    head = head.next;
-  }
-  return result;
-}
-
 var deleteDuplicates = function(head) {
   let node = head;
-  const root = new ListNode();
+  const root = new ListNode(null);
   let firstDifferent = root;
   while(node) {
     if(node.val !== firstDifferent.val) {
