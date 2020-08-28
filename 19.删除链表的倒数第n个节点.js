@@ -21,17 +21,17 @@
 var removeNthFromEnd = function(head, n) {
   const rootNode = new ListNode();
   rootNode.next = head;
-  let fast = rootNode;
-  let slow = head;
+  let slow = rootNode;
+  let fast = head;
   while(n > 0) {
-    slow = slow.next;
+    fast = fast.next;
     n--;
   }
-  while(slow) {
-    slow = slow.next;
+  while(fast) {
     fast = fast.next;
+    slow = slow.next;
   }
-  fast.next = fast.next.next;
+  slow.next = slow.next.next;
   return rootNode.next;
 };
 // @lc code=end
