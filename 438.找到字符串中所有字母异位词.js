@@ -11,6 +11,39 @@
  * @return {number[]}
  */
 var findAnagrams = function(s, p) {
+  // 初始化
+  let needs = {};
+  let window = {};
+  for(let i = 0; i < 26; i++) {
+    needs[String.fromCharCode(97 + i)] = 0;
+    window[String.fromCharCode(97 + i)] = 0;
+  }
+  for(let i = 0; i < p.length; i++) {
+    needs[p[i]]++;
+  }
+
+  const result = [];
+  let l = 0;
+  let r = 0;
+  while(r < s.length) {
+    window[s[r]]++;
+
+    while(window[s[r]] > needs[s[r]]) {
+      window[s[l]]--;
+      l++;
+    }
+
+    if(r - l + 1 === p.length) {
+      result.push(l);
+    }
+    r++;
+  }
+  return result;
+};
+// @lc code=end
+
+/*
+var findAnagrams = function(s, p) {
   let letterMap = {};
   let letterUniqCount = 0;
   for(let i = 0; i < p.length; i++) {
@@ -55,5 +88,4 @@ var findAnagrams = function(s, p) {
   }
   return result;
 };
-// @lc code=end
-
+*/
