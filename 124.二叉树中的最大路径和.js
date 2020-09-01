@@ -17,32 +17,20 @@
  * @return {number}
  */
 var maxPathSum = function(root) {
-  if(!root) {
-    return 0;
-  }
   let max = -Infinity;
-  const maxSingleBranchSum = node => {
+  const maxSum = node => {
     if(!node) {
       return 0;
     }
-    const left = maxSingleBranchSum(node.left);
-    const right = maxSingleBranchSum(node.right);
-    max = Math.max(
-      max,
-      node.val,
-      left + node.val,
-      right + node.val,
-      left + right + node.val
-    );
-    if(node.left && max < left) {
-      max = left;
+    const left = Math.max(maxSum(node.left), 0);
+    const right = Math.max(maxSum(node.right), 0);
+    const newSum = left + right + node.val;
+    if(newSum > max) {
+      max = newSum;
     }
-    if(node.right && max < right) {
-      max = right;
-    }
-    return Math.max(left, right, 0) + node.val;
+    return Math.max(left, right) + node.val;
   }
-  maxSingleBranchSum(root);
+  maxSum(root);
   return max;
 };
 // @lc code=end
