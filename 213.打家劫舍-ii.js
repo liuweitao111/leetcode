@@ -17,13 +17,19 @@ var rob = function(nums) {
   if(len <= 2) {
     return Math.max(...nums);
   }
-  const dp1 = [nums[0], nums[0]]; 
-  const dp2 = [0, nums[1]];
+  let prev1 = nums[0];
+  let curr1 = nums[0];
+  let prev2 = 0;
+  let curr2 = nums[1];
   for(let i = 2; i < len - 1; i++) {
-    dp1[i] = Math.max(dp1[i - 1], dp1[i - 2] + nums[i]);
-    dp2[i] = Math.max(dp2[i - 1], dp2[i - 2] + nums[i]);
+    let tmp = curr1;
+    curr1 = Math.max(curr1, prev1 + nums[i]);
+    prev1 = tmp;
+    tmp = curr2;
+    curr2 = Math.max(curr2, prev2 + nums[i]);
+    prev2 = tmp;
   }
-  return Math.max(dp1[len - 2], dp2[len - 2], dp2[len - 3] + nums[len - 1]);
+  return Math.max(curr1, curr2, prev2 + nums[len - 1]);
 };
 // @lc code=end
 
