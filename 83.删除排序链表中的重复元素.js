@@ -16,19 +16,30 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
+// var deleteDuplicates = function(head) {
+//   let node = head;
+//   const root = new ListNode(null);
+//   let firstDifferent = root;
+//   while(node) {
+//     if(node.val !== firstDifferent.val) {
+//       firstDifferent.next = node;
+//       firstDifferent = node;
+//     }
+//     node = node.next;
+//   }
+//   firstDifferent.next = null;
+//   return root.next;
+// };
 var deleteDuplicates = function(head) {
   let node = head;
-  const root = new ListNode(null);
-  let firstDifferent = root;
-  while(node) {
-    if(node.val !== firstDifferent.val) {
-      firstDifferent.next = node;
-      firstDifferent = node;
+  while(node && node.next) {
+    if(node.val === node.next.val) {
+      node.next = node.next.next;
+    } else {
+      node = node.next;
     }
-    node = node.next;
   }
-  firstDifferent.next = null;
-  return root.next;
+  return head;
 };
 // @lc code=end
 
