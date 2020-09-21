@@ -31,12 +31,12 @@
 //   return root.next;
 // };
 var deleteDuplicates = function(head) {
-  let node = head;
-  while(node && node.next) {
-    if(node.val === node.next.val) {
-      node.next = node.next.next;
+  let current = head;
+  while(current && current.next) {
+    if(current.val === current.next.val) {
+      current.next = current.next.next;
     } else {
-      node = node.next;
+      current = current.next;
     }
   }
   return head;
