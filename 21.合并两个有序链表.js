@@ -17,31 +17,48 @@
  * @param {ListNode} l2
  * @return {ListNode}
  */
+// var mergeTwoLists = function(l1, l2) {
+//   const rootNode = new ListNode();
+//   let nextNode = rootNode;
+//   while(l1 && l2) {
+//     if(l1.val < l2.val) {
+//       nextNode.next = new ListNode(l1.val);
+//       nextNode = nextNode.next;
+//       l1 = l1.next;
+//     } else {
+//       nextNode.next = new ListNode(l2.val);
+//       nextNode = nextNode.next;
+//       l2 = l2.next;
+//     }
+//   }
+//   while(l1) {
+//     nextNode.next = new ListNode(l1.val);
+//     nextNode = nextNode.next;
+//     l1 = l1.next;
+//   }
+//   while(l2) {
+//     nextNode.next = new ListNode(l2.val);
+//     nextNode = nextNode.next;
+//     l2 = l2.next;
+//   }
+//   return rootNode.next;
+// };
 var mergeTwoLists = function(l1, l2) {
-  const rootNode = new ListNode();
-  let nextNode = rootNode;
+  const dummy = new ListNode();
+  let head = dummy;
   while(l1 && l2) {
     if(l1.val < l2.val) {
-      nextNode.next = new ListNode(l1.val);
-      nextNode = nextNode.next;
+      head.next = l1;
+      head = head.next;
       l1 = l1.next;
     } else {
-      nextNode.next = new ListNode(l2.val);
-      nextNode = nextNode.next;
+      head.next = l2;
+      head = head.next;
       l2 = l2.next;
     }
   }
-  while(l1) {
-    nextNode.next = new ListNode(l1.val);
-    nextNode = nextNode.next;
-    l1 = l1.next;
-  }
-  while(l2) {
-    nextNode.next = new ListNode(l2.val);
-    nextNode = nextNode.next;
-    l2 = l2.next;
-  }
-  return rootNode.next;
+  head.next = l1 ? l1 : l2;
+  return dummy.next;
 };
 // @lc code=end
 
