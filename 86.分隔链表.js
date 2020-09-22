@@ -42,25 +42,44 @@
 //   }
 //   return root.next;
 // };
-var partition = function(head, x) {
-  let beforeHead = new ListNode();
-  let before = beforeHead;
-  let afterHead = new ListNode();
-  let after = afterHead;
+// var partition = function(head, x) {
+//   let beforeHead = new ListNode();
+//   let before = beforeHead;
+//   let afterHead = new ListNode();
+//   let after = afterHead;
 
+//   while(head) {
+//     if(head.val < x) {
+//       before.next = head;
+//       before = before.next;
+//     } else {
+//       after.next = head;
+//       after = after.next;
+//     }
+//     head = head.next;
+//   }
+//   after.next = null;
+//   before.next = afterHead.next;
+//   return beforeHead.next;
+// }
+var partition = function(head, x) {
+  const headDummy = new ListNode();
+  const tailDummy = new ListNode();
+  let headNode = headDummy;
+  let tailNode = tailDummy;
   while(head) {
     if(head.val < x) {
-      before.next = head;
-      before = before.next;
+      headNode.next = head;
+      headNode = headNode.next;
     } else {
-      after.next = head;
-      after = after.next;
+      tailNode.next = head;
+      tailNode = tailNode.next;
     }
     head = head.next;
   }
-  after.next = null;
-  before.next = afterHead.next;
-  return beforeHead.next;
+  headNode.next = tailDummy.next;
+  tailNode.next = null;
+  return headDummy.next;
 }
 // @lc code=end
 
