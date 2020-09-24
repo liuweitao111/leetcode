@@ -20,6 +20,7 @@ var reorderList = function(head) {
   if(!head) {
     return;
   }
+  // 寻找中点
   let fast = head.next;
   let slow = head;
   while(fast && fast.next) {
@@ -28,6 +29,7 @@ var reorderList = function(head) {
   }
   let h = slow.next
   slow.next = null;
+  // 翻转链表
   const h1 = new ListNode();
   while(h) {
     const tmp = h1.next;
@@ -36,6 +38,7 @@ var reorderList = function(head) {
     h1.next.next = tmp;
     h = next;
   }
+  // 合并两个链表
   h = h1.next;
   while(head && h) {
     const tmp1 = head.next;
