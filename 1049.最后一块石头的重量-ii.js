@@ -11,14 +11,14 @@
  */
 var lastStoneWeightII = function(stones) {
   const sum = stones.reduce((sum, stone) => sum + stone, 0);
-  const target = Math.ceil(sum / 2);
+  const target = Math.floor(sum / 2);
   const dp = Array(target + 1).fill(0);
   for(stone of stones) {
     for(let i = target; i >= stone; i--) {
       dp[i] = Math.max(dp[i], dp[i - stone] + stone);
     }
   }
-  return Math.abs(sum - 2 * dp[target]);
+  return sum - 2 * dp[target];
 };
 // @lc code=end
 
