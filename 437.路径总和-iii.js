@@ -18,30 +18,50 @@
  * @param {number} sum
  * @return {number}
  */
+// var pathSum = function(root, sum) {
+//   let res = 0;
+//   const findPath = (node, remain) => {
+//     if(!node) {
+//       return;
+//     }
+//     remain = remain - node.val;
+//     if(remain === 0) {
+//       res++;
+//     }
+//     findPath(node.left, remain);
+//     findPath(node.right, remain);
+//   }
+//   const stack = [];
+//   let node = root;
+//   while(node || stack.length) {
+//     while(node) {
+//       stack.push(node);
+//       node = node.left;
+//     }
+//     node = stack.pop();
+//     findPath(node, sum);
+//     node = node.right;
+//   }
+//   return res;
+// };
 var pathSum = function(root, sum) {
+  const sumMap = new Map();
+  sumMap.set(0, 1);
   let res = 0;
-  const findPath = (node, remain) => {
+  const dfs = (node, s) => {
     if(!node) {
       return;
     }
-    remain = remain - node.val;
-    if(remain === 0) {
-      res++;
+    s += node.val;
+    if(sumMap.has(s - sum)) {
+      res += sumMap.get(s - sum);
     }
-    findPath(node.left, remain);
-    findPath(node.right, remain);
+    sumMap.set(s, (sumMap.get(s) || 0) + 1);
+    dfs(node.left, s);
+    dfs(node.right, s);
+    sumMap.set(s, sumMap.get(s) - 1);
   }
-  const stack = [];
-  let node = root;
-  while(node || stack.length) {
-    while(node) {
-      stack.push(node);
-      node = node.left;
-    }
-    node = stack.pop();
-    findPath(node, sum);
-    node = node.right;
-  }
+  dfs(root, 0);
   return res;
 };
 // @lc code=end
