@@ -9,6 +9,19 @@
  * @param {number[]} nums
  * @return {number}
  */
+// var jump = function(nums) {
+//   const dp = Array(nums.length).fill(Infinity);
+//   dp[0] = 0;
+//   for(let i = 1; i < nums.length; i++) {
+//     for(let j = 0; j < i; j++) {
+//       if(j + nums[j] >= i) {
+//         dp[i] = Math.min(dp[i], dp[j] + 1);
+//       }
+//     }
+//   }
+//   return dp[nums.length - 1];
+// };
+// 贪心
 var jump = function(nums) {
   if(nums.length <= 1) {
     return 0;
