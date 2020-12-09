@@ -10,7 +10,13 @@
  * @return {number[]}
  */
 var grayCode = function(n) {
-
+  let res = [0];
+  let h = 1;
+  for(let i = 1; i <= n; i++) {
+    res = [...res, ...res.reverse().map(r => h + r)];
+    h = h << 1;
+  }
+  return res;
 };
 // @lc code=end
 
